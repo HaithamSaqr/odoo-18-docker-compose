@@ -2,7 +2,6 @@ version: '3.7'
 services:
   db:
     image: postgres:17
-    container_name: postgres_db
     deploy:
       resources:
         limits:
