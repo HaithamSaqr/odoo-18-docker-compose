@@ -1,36 +1,33 @@
-version: '2'
+version: '3.7'
 services:
   db:
     image: postgres:17
     container_name: postgres_db
-    shm_size: '1gb' 
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    shm_size: '2gb'             # Set shared memory size to 1GB
     environment:
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo18@2024
-      - POSTGRES_DB=postgres
-    restart: always             # run as a service
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo18@2024
+      POSTGRES_DB: postgres
+    restart: always
     volumes:
-        - ./postgresql:/var/lib/postgresql/data
+      - ./postgresql:/var/lib/postgresql/data
 
   odoo18:
     image: odoo:18
-    user: root
     depends_on:
       - db
     ports:
       - "10018:8069"
-      - "20018:8072" # live chat
-    tty: true
-    command: --
+      - "20018:8072"
     environment:
-      - HOST=db
-      - USER=odoo
-      - PASSWORD=odoo18@2024
+      HOST: db
+      USER: odoo
+      PASSWORD: odoo18@2024
     volumes:
-      #- /etc/timezone:/etc/timezone:ro
-      #- /etc/localtime:/etc/localtime:ro
-      # - ./entrypoint.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
       - ./addons:/mnt/extra-addons
       - ./etc:/etc/odoo
-    restart: always             # run as a service
-    
+    restart: always
