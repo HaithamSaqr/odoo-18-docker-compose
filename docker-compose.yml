@@ -2,8 +2,8 @@ version: '2'
 services:
   db:
     image: postgres:17
-    user: root
-    shm_size: '1gb'
+    container_name: postgres_db
+    shm_size: '1gb' 
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo18@2024
