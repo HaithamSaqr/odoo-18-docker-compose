@@ -6,7 +6,7 @@ services:
       resources:
         limits:
           memory: 2g
-    shm_size: '2gb'             # Set shared memory size to 1GB
+    shm_size: '2gb'
     environment:
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo18@2024
@@ -17,6 +17,11 @@ services:
 
   odoo18:
     image: odoo:18
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    shm_size: '2gb'
     depends_on:
       - db
     ports:
