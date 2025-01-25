@@ -1,12 +1,11 @@
 version: '3.7'
-
 services:
   db:
     image: postgres:17
     deploy:
       resources:
         limits:
-          memory: 4g
+          memory: 2g
     shm_size: '2gb'
     environment:
       POSTGRES_USER: odoo
@@ -15,54 +14,24 @@ services:
     restart: always
     volumes:
       - ./postgresql:/var/lib/postgresql/data
-    # networks:
-    #   - odoo_network
-
-  pgbouncer:
-    image: edoburu/pgbouncer
-    deploy:
-      resources:
-        limits:
-          memory: 512m
-    environment:
-      DATABASES: "odoo=host=db port=5432 dbname=postgres"
-      AUTH_FILE: "/etc/pgbouncer/userlist.txt"
-      POOL_MODE: "session"
-      MAX_CLIENT_CONN: "100"
-      DEFAULT_POOL_SIZE: "30"
-    volumes:
-      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt
-    ports:
-      - "6432:6432"
-    depends_on:
-      - db
-    # networks:
-    #   - odoo_network
 
   odoo18:
     image: odoo:18
     deploy:
       resources:
         limits:
-          memory: 4g 
+          memory: 2g
     shm_size: '2gb'
     depends_on:
-      - pgbouncer
+      - db
     ports:
       - "10018:8069"
       - "20018:8072"
     environment:
-      HOST: pgbouncer
-      PORT: 6432
+      HOST: db
       USER: odoo
       PASSWORD: odoo18@2024
     volumes:
       - ./addons:/mnt/extra-addons
       - ./etc:/etc/odoo
     restart: always
-    # networks:
-    #   - odoo_network
-
-networks:
-  odoo_network:
-    driver: bridge
