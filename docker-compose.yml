@@ -5,11 +5,11 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 4g
     shm_size: '2gb'
     environment:
       POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo18@2024
+      POSTGRES_PASSWORD: P@ss@123@123
       POSTGRES_DB: postgres
     restart: always
     volumes:
@@ -20,7 +20,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2g
+          memory: 4g
     shm_size: '2gb'
     depends_on:
       - db
@@ -30,7 +30,7 @@ services:
     environment:
       HOST: db
       USER: odoo
-      PASSWORD: odoo18@2024
+      PASSWORD: P@ss@123@123
     volumes:
       - ./addons:/mnt/extra-addons
       - ./etc:/etc/odoo
