@@ -2,6 +2,8 @@ version: '3.7'
 services:
   db:
     image: postgres:17
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/bigbeartechworld/big-bear-casaos/Apps/odoo/logo.jpg
     deploy:
       resources:
         limits:
