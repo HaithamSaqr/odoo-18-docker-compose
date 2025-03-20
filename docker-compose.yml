@@ -5,8 +5,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4g
-    shm_size: '2gb'
+          memory: 0g
+    shm_size: '0gb'
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo18@2024
@@ -19,8 +19,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4g
-    shm_size: '2gb'
+          memory: 0g
+    shm_size: '0gb'
     user: root
     depends_on:
       - db
