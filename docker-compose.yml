@@ -4,9 +4,11 @@ services:
     image: postgres:17
     deploy:
       resources:
+        reservations:
+          memory: 1G
         limits:
-          memory: 0g
-    shm_size: '0gb'
+          memory: 4G
+    shm_size: '2gb'
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo18@2024
@@ -18,9 +20,11 @@ services:
     image: odoo:18
     deploy:
       resources:
+        reservations:
+          memory: 2G
         limits:
-          memory: 0g
-    shm_size: '0gb'
+          memory: 4G
+    shm_size: '2gb'
     user: root
     depends_on:
       - db
